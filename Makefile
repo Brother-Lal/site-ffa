@@ -23,7 +23,8 @@ JOBS ?= $(shell cat /proc/cpuinfo | grep processor | wc -l)
 
 GLUON_MAKEFLAGS := -C ${GLUON_BUILD_DIR} \
 			GLUON_RELEASE=${GLUON_RELEASE} \
-			GLUON_BRANCH=${GLUON_BRANCH}
+			GLUON_BRANCH=${GLUON_BRANCH} \
+		   -j${JOBS}
 
 all: info
 	$(MAKE) manifest
@@ -33,6 +34,7 @@ info:
 	@echo '#########################'
 	@echo '# TECFF Firmware build'
 	@echo '# Building release ${GLUON_RELEASE} for branch ${GLUON_BRANCH}'
+	@echo '# Building with ${JOBS} threads (-j${JOBS})'
 	@echo
 
 build: gluon-prepare
